@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#111e32"><meta name="description" content="Blue-hour billiards. Casual eight-ball: solids, stripes, computer and live multiplayer."><title>Pocket Pool · Eight-ball</title>
+<style>
+:root{color-scheme:dark;--ink:#edf7fc;--muted:#9eb5c9;--line:#344c65;--cyan:#72ddf4;--gold:#ffcd69}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% 40%,#263c56,#101c30 75%);color:var(--ink);font:14px/1.45 'Trebuchet MS',Arial,sans-serif;min-height:100dvh}button,input,textarea{font:inherit}button{color:inherit;cursor:pointer;min-height:44px;border:1px solid var(--line);border-radius:8px;background:#1c3048;padding:8px 14px}button:hover:not(:disabled){background:#304b65;border-color:var(--cyan)}button:disabled{opacity:.48;cursor:default}button:focus-visible,input:focus-visible,textarea:focus-visible,canvas:focus-visible{outline:3px solid var(--gold);outline-offset:3px}[hidden]{display:none!important}.page{max-width:1600px;margin:auto;padding:14px 26px 18px}.topbar{display:grid;grid-template-columns:48px 1fr 48px;gap:20px;align-items:center;max-width:1200px;margin:0 auto 12px}.menu{font-size:23px;padding:0;width:44px}.rack{font-size:25px;padding:0;width:44px}.scoreboard{display:grid;grid-template-columns:1fr 130px 1fr;gap:18px;align-items:center}.player{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;border:1px solid #3d526a;border-radius:12px;padding:8px 12px;background:linear-gradient(#273e57,#192a41);box-shadow:inset 0 1px #ffffff15}.player.active{border-color:#6cd8ee;box-shadow:0 0 18px #48cceb20,inset 0 1px #a7ecff50}.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 25%,#81d9eb,#256a96);border:2px solid #a4e6f0;font:bold 23px Georgia,serif;text-shadow:0 2px #0006}.right .avatar{background:radial-gradient(circle at 35% 25%,#efc087,#9d593d);border-color:#e8b986}.player-name{font-size:14px;font-weight:bold}.player-name small{display:block;color:var(--muted);font-weight:normal;font-size:10px}.score{font:bold 30px/1 Georgia,serif;min-width:22px}.pips{display:flex;gap:5px;margin-top:4px}.pip{display:block;width:10px;height:10px;border-radius:50%;background:#101a2b;border:1px solid #607287;box-shadow:inset 0 2px 2px #0009}.pip.potted{background:var(--gold);border-color:#ffe7ac;box-shadow:0 0 5px #ffcb6650}.table-label{text-align:center}.table-label strong{display:block;font:italic bold 19px Georgia,serif}.table-label span{font:9px 'Courier New',monospace;letter-spacing:2px;color:var(--cyan)}.arena{display:grid;grid-template-columns:62px minmax(0,1fr);gap:12px;align-items:center}.power-control{align-self:stretch;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}.power-control label{font:bold 10px 'Courier New',monospace;letter-spacing:1px;color:var(--muted)}#powerValue{font:bold 17px 'Courier New',monospace;color:var(--gold)}.meter-shell{height:clamp(140px,37dvh,350px);width:48px;border-radius:10px;background:linear-gradient(90deg,#506073,#18283c 20%,#152336 75%,#617084);border:1px solid #7e8995;box-shadow:0 5px 12px #0008,inset 0 1px #b2c0cc;display:flex;justify-content:center;padding:10px 0}#power{writing-mode:vertical-lr;direction:rtl;appearance:none;-webkit-appearance:none;width:25px;height:100%;margin:0;border-radius:4px;cursor:ns-resize;touch-action:none;background:repeating-linear-gradient(to top,transparent 0,transparent calc(10% - 1px),#301e1c99 10%),linear-gradient(to top,#e34537,#f79437 53%,#f5da58);box-shadow:inset 2px 0 4px #0008;border:1px solid #1d2635}#power::-webkit-slider-thumb{appearance:none;width:37px;height:12px;border-radius:3px;border:2px solid #e0edf6;background:linear-gradient(#f9fbff,#748a9d);box-shadow:0 2px 4px #000}#power::-moz-range-thumb{width:34px;height:10px;background:#d7e8f1;border:2px solid white;border-radius:3px}.table-zone{min-width:0;display:flex;justify-content:center}.table-wrap{width:min(100%,calc((100dvh - 222px)*1.833333));filter:drop-shadow(0 16px 16px #050c1877)}canvas{width:100%;height:auto;display:block;touch-action:none;border-radius:25px}.bottom{margin:8px auto 0;max-width:1120px;display:grid;grid-template-columns:minmax(190px,1fr) minmax(160px,320px) 180px;gap:28px;align-items:center}.status-bar h2{font-size:15px;font-weight:bold;margin:0;color:var(--cyan)}.status-bar p{color:var(--muted);font-size:11px;margin:3px 0;min-height:16px}.below-table{color:#7e99b1;font:10px 'Courier New',monospace}.control-head{display:flex;justify-content:space-between;color:var(--muted);font-size:11px}.control-head output{font-family:'Courier New',monospace;color:var(--ink)}#angle{width:100%;accent-color:var(--cyan);height:26px;cursor:ew-resize;margin:0;touch-action:none}#shoot{min-height:52px;background:linear-gradient(#ffe095,#e8ac44);color:#322410;font-weight:bold;border:1px solid #ffe4a4;box-shadow:0 4px 0 #925620,0 6px 16px #0004;letter-spacing:.3px}#shoot:hover:not(:disabled){background:#ffe3a0}.rotate{display:none;color:var(--muted);text-align:center;font-size:12px;margin:24px 0 0}.share{max-width:800px;margin:22px auto;background:#152b42;border:1px solid var(--line);padding:18px;border-radius:12px}.share h3{margin:0 0 8px}.share p,.share label{font-size:12px;color:var(--muted)}textarea{display:block;width:100%;min-height:80px;background:#0d1b2d;color:#d9edf8;border:1px solid var(--line);border-radius:6px;padding:10px;overflow-wrap:anywhere;resize:vertical}.error{padding:10px;background:#703a30;border:1px solid #eaa47a;margin:10px 0}.settings-overlay{position:fixed;inset:0;background:#050d1bcc;z-index:10;display:flex;align-items:center;justify-content:center;padding:20px}.settings-panel{background:#192b42;border:1px solid #6a829c;border-radius:16px;width:500px;max-width:100%;max-height:90dvh;overflow:auto;padding:22px;box-shadow:0 20px 80px #0009}.settings-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.settings-header h2{margin:0;font:24px Georgia,serif}.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mode{font-size:13px;text-align:left}.mode small{display:block;font-size:10px;color:var(--muted);margin-top:5px}.mode[aria-pressed=true]{border-color:var(--cyan);background:#25465d}#modeNote,.rule-tags{font-size:11px;color:var(--muted)}.rules{border-top:1px solid var(--line);margin-top:18px;padding-top:12px;font-size:13px;color:#c7d8e6}.rules h3{color:var(--gold);font-size:13px}.rules p{margin:8px 0}.privacy{font-size:10px;color:var(--muted);margin-top:16px}
+/* Portrait-first: the renderer rotates, never the engine's 800 × 400 state. */
+.page{max-width:474px;padding:10px 10px 16px}
+.topbar{grid-template-columns:44px minmax(0,1fr) 44px;gap:6px;margin:0 auto 10px}
+.scoreboard{grid-template-columns:1fr 1fr;gap:7px;min-width:0}
+.table-label{display:none}.player{grid-template-columns:26px minmax(0,1fr) auto;gap:5px;padding:7px 6px;border-radius:10px;min-width:0}
+.avatar{width:26px;height:26px;font-size:17px}.player-name{font-size:11px}.player-name small{display:none}.score{font-size:24px;min-width:13px}
+.pips{gap:3px;margin-top:5px}.pip{width:6px;height:6px;flex-shrink:0}
+.arena{grid-template-columns:36px minmax(0,1fr);gap:6px}.table-wrap{width:min(100%,400px,calc((100dvh - 205px)*.5454545455))}
+canvas{aspect-ratio:480/880;border-radius:16px}.power-control{gap:8px}.power-control label{font-size:8px}
+.meter-shell{width:32px;height:clamp(160px,37dvh,330px);padding:10px 0}#power{width:18px}#power::-webkit-slider-thumb{width:29px}#powerValue{font-size:12px}
+.bottom{grid-template-columns:minmax(0,1fr) 132px;gap:8px 14px;margin:10px 4px 0}.status-bar{grid-column:1/-1}.status-bar h2{font-size:14px}.status-bar p{font-size:11px;margin:2px 0;min-height:16px}.below-table{font-size:9px}
+#shoot{min-height:46px;font-size:12px;padding:8px}.control-head{font-size:11px}#angle{height:27px}
+.share{margin:18px auto;padding:15px}.settings-panel{padding:18px}.modes{grid-template-columns:1fr}
+@media(max-height:600px){.table-wrap{width:min(100%,calc((100dvh - 195px)*.5454545455))}.meter-shell{height:clamp(90px,32dvh,180px)}.page{padding-top:6px}.topbar{margin-bottom:6px}.bottom{margin-top:6px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+.page{padding-top:max(10px,env(safe-area-inset-top));padding-bottom:max(16px,env(safe-area-inset-bottom))}.player-name small{display:block;font-size:9px;color:#c6dce7}.pip{width:9px;height:9px;border:1px solid #ffffffaa}.pip.potted{opacity:.2!important;filter:grayscale(1)}.pips{gap:2px}.lobby{position:fixed;inset:0;z-index:30;background:#102238f5;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:25px;text-align:center;gap:12px}.lobby button{width:240px}.lobby h1{font-size:25px}.lobby p{max-width:330px}.share{padding:10px}.share h3{margin:0}.player-name{overflow:hidden}#shareLink{width:100%;height:55px}
+</style><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Pocket Pool"></head>
+<body><section id="lobby" class="lobby"><h1>Pocket Pool · 8-ball</h1><p>Solids or stripes. Clear your group, then sink the eight.</p><button id="playComputer">Play computer</button><button id="playFriend">Play by link</button><p id="lobbyStatus" role="status">Casual 8-ball · house rules</p></section><main class="page"><header class="topbar"><button id="settingsButton" class="menu" aria-label="Settings and help" aria-expanded="false" aria-controls="settings">☰</button><div class="scoreboard"><div id="humanPlayer" class="player active"><div class="avatar" aria-hidden="true">Y</div><div class="player-name"><span id="humanName">You</span><small id="humanGroup">OPEN</small><div class="pips" id="humanPips" aria-label="Your potted-ball progress"><i class="pip"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i></div></div><span id="humanScore" class="score">0</span></div><div class="table-label"><strong>Pocket Pool</strong><span>EIGHT-BALL / BLUE HOUR</span></div><div id="astroPlayer" class="player right"><div class="avatar" aria-hidden="true">A</div><div class="player-name"><span id="astroName">Computer</span><small id="astroGroup">OPEN</small><div class="pips" id="astroPips" aria-label="Astro potted-ball progress"><i class="pip"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i></div></div><span id="astroScore" class="score">0</span></div></div><button id="restart" class="rack" title="New rack" aria-label="Restart the round">↻</button></header>
+<div id="error" class="error" role="alert" hidden></div><section class="arena" aria-label="Eight-ball pool table and shot power"><div class="power-control"><label for="power">POWER</label><div class="meter-shell"><input id="power" type="range" min="5" max="100" step="1" value="65" aria-label="Shot power percent" aria-orientation="vertical"></div><output id="powerValue" for="power">65%</output></div><div class="table-zone"><div class="table-wrap"><canvas id="table" width="480" height="880" tabindex="0" aria-label="Eight-ball pool table. Tap or drag to aim, or use the fine aim slider. Adjust the vertical power meter, then shoot.">Eight-ball pool table. Use the aim and power sliders, then Take the shot.</canvas></div></div></section>
+<div class="bottom"><div class="status-bar" aria-live="polite" aria-atomic="true"><h2 id="turn">Your turn · line it up</h2><p id="status">Tap the felt to aim. You break.</p><div class="below-table"><span id="remaining">15 on the table</span> · V7 · <span id="motionNote">Full rolling</span></div></div><div class="control"><div class="control-head"><label for="angle">Fine aim</label><output id="angleValue" for="angle">0.0°</output></div><input id="angle" type="range" min="0" max="359.9" step="0.1" value="0" aria-label="Aim angle in degrees"></div><button id="shoot">Take the shot</button></div>
+<section id="share" class="share" hidden><h3>Send game link to Astro or a friend</h3><button id="copy">Copy game link</button><p id="copyNote" role="status">This ?g= link carries only the game ID: no hash snapshot or seat token. Send it here when you want Astro to join.</p><textarea id="shareLink" readonly aria-label="Game link"></textarea></section><div id="settings" class="settings-overlay" hidden><section class="settings-panel" role="dialog" aria-modal="true" aria-labelledby="settingsTitle"><header class="settings-header"><h2 id="settingsTitle">At the table</h2><button id="settingsClose" aria-label="Close settings">Done</button></header><div class="modes"><button id="backLobby">Choose opponent</button></div><p id="modeNote">Local computer opponent</p><label for="motionMode">Animation </label><select id="motionMode" style="min-height:44px;background:#192b42;color:#edf7fc"><option value="auto">Auto · follow device</option><option value="full">Full rolling</option><option value="instant">Instant</option></select><div class="rules"><h3>CASUAL 8-BALL · HOUSE RULES</h3><p>Not full official/WPA rules, and not an exact Messenger rules replica. The first clean non-eight pot assigns solids (1–7) or stripes (9–15), <strong>including on the break</strong>. If both groups fall, the first potted ball decides.</p><p>Hit your group first; after clearing it, hit the eight first. A clean own-group pot keeps your turn. A miss, wrong first contact, no contact or scratch passes it. Potted balls stay down even on fouls.</p><p>Sink the eight only when your whole group was already gone before the shot. Early eight, foul eight, or scratch with the eight loses. A legal eight wins. No called pockets, rail-after-contact requirement or special break rule. 200 shots is a draw.</p><p><strong>Automatic-respot house rule:</strong> scratches replace the cue in the first clear spot; no manual ball-in-hand. Other fouls leave the cue where it rests. Simplified v5 rails and circular pockets are unchanged.</p><h3>AIM & PLAY</h3><p>Tap or drag the felt to aim, adjust Fine aim and the vertical power meter, then shoot. Portrait: 0° down, 90° left, 180° up, 270° right. Arrow keys adjust sliders. Settings offers Instant or Full rolling.</p><p>Computer is a local automatic opponent. Play by link uses the live server; send the link to Astro or a friend to join. Astro only plays when asked here, with no automatic turn notifications. Your seat stays in this browser. Full games open read-only for spectators. Network unavailable? Computer mode still works.</p></div></section></div></main>
+<script>'use strict';
+(function(root){
+ const W=800,H=400,R=11,POCKET=23;
+ const pockets=[[0,0],[400,0],[800,0],[0,400],[400,400],[800,400]];
+ const group=id=>id>=1&&id<=7?'solids':id>=9&&id<=15?'stripes':null;
+ const colors=['#faf4e5','#efc62f','#2864c6','#d33b35','#7846ac','#ee8527','#2b9b66','#853544','#16191f','#efc62f','#2864c6','#d33b35','#7846ac','#ee8527','#2b9b66','#853544'];
+ function createState(){const ids=[1,9,2,3,8,10,11,4,12,5,6,13,7,14,15],b=[[0,200,200]];let i=0;for(let row=0;row<5;row++)for(let j=0;j<=row;j++)b.push([ids[i++],Math.round((550+row*19.226)*1000)/1000,200+(j-row/2)*22.2]);b.sort((a,b)=>a[0]-b[0]);return {v:7,turn:0,n:0,groups:[null,null],over:false,result:null,reason:'',moves:[],b};}
+ function validateState(s){
+  if(!s||s.v!==7||![0,1].includes(s.turn)||!Number.isSafeInteger(s.n)||s.n<0||s.n>200||!Array.isArray(s.moves)||s.moves.length!==s.n||!Array.isArray(s.groups)||s.groups.length!==2||!(s.groups.every(g=>g===null)||(s.groups.includes('solids')&&s.groups.includes('stripes')))||typeof s.over!=='boolean'||typeof s.reason!=='string'||!(s.result===null||['seat0','seat1','draw'].includes(s.result))||s.over!==(s.result!==null)||!Array.isArray(s.b)||s.b.length<1||s.b.length>16)return false;
+  for(const m of s.moves){if(!m||![0,1].includes(m.seat)||!Number.isFinite(m.angle)||m.angle<0||m.angle>=360||!Number.isFinite(m.power)||m.power<.05||m.power>1||!m.outcome||!Array.isArray(m.outcome.potted)||m.outcome.potted.some(id=>!Number.isInteger(id)||id<1||id>15)||typeof m.outcome.scratch!=='boolean'||!(m.outcome.first===null||Number.isInteger(m.outcome.first)&&m.outcome.first>=1&&m.outcome.first<=15)||typeof m.outcome.foul!=='string')return false;}
+  let last=-1;for(const b of s.b){if(!Array.isArray(b)||b.length!==3||!b.every(Number.isFinite)||!Number.isInteger(b[0])||b[0]<=last||b[0]>15||b[1]<R||b[1]>W-R||b[2]<R||b[2]>H-R)return false;last=b[0];}return s.b[0][0]===0;
+ }
+ const round=x=>Math.round(x*1000)/1000;
+ function result(s){return s.over?s.result:null;}
+ function targets(s){const own=s.groups[s.turn],balls=s.b.filter(b=>b[0]&&b[0]!==8&&(!own||group(b[0])===own));return balls.length?balls:s.b.filter(b=>b[0]===8);}
+ function adjudicate(s,b,outcome,angle,power){
+  const legal=targets(s).map(b=>b[0]),foul=outcome.scratch?'Scratch':outcome.first===null?'No first contact':!legal.includes(outcome.first)?'Wrong first contact':'';outcome={...outcome,foul};
+  const groups=s.groups.slice();if(!groups[s.turn]&&!foul&&outcome.potted.some(id=>group(id))){const g=group(outcome.potted.find(id=>group(id)));groups[s.turn]=g;groups[1-s.turn]=g==='solids'?'stripes':'solids';}
+  const retain=!foul&&outcome.potted.some(id=>group(id)===groups[s.turn]);
+  const eight=outcome.potted.includes(8),win=eight&&!foul&&legal.includes(8),over=eight||s.n>=199;
+  const reason=eight?(win?'Legal eight':outcome.scratch?'Scratch on eight':'Early or foul eight'):over?'200-shot house limit':'';
+  return {...s,groups,b,turn:retain?s.turn:1-s.turn,n:s.n+1,over,result:eight?'seat'+(win?s.turn:1-s.turn):over?'draw':null,reason,moves:[...s.moves,{seat:s.turn,angle,power,outcome:{...outcome}}]};
+ }
+ function shoot(s,angle,power){
+  if(!validateState(s)||result(s)||s.n>=200||!Number.isFinite(angle)||angle<0||angle>=360||!Number.isFinite(power)||power<0.05||power>1)throw Error('Invalid shot');
+  const balls=s.b.map(b=>({id:b[0],x:b[1],y:b[2],vx:0,vy:0,down:false}));
+  const cue=balls.find(b=>b.id===0),rad=angle*Math.PI/180,speed=180+power*820;
+  cue.vx=Math.cos(rad)*speed;cue.vy=Math.sin(rad)*speed;
+  const snapshot=()=>balls.filter(b=>!b.down).map(b=>[b.id,round(b.x),round(b.y)]);
+  const frames=[snapshot()],potted=[];let scratch=false,first=null;
+  const dt=1/180;
+  for(let step=0;step<1800;step++){
+   for(const b of balls){
+    if(b.down)continue;
+    b.x+=b.vx*dt;b.y+=b.vy*dt;
+    if(pockets.some(p=>Math.hypot(b.x-p[0],b.y-p[1])<POCKET)){
+     b.down=true;b.vx=b.vy=0;if(b.id===0)scratch=true;else potted.push(b.id);continue;
+    }
+    if(b.x<R){b.x=R;b.vx=Math.abs(b.vx)*0.86;}if(b.x>W-R){b.x=W-R;b.vx=-Math.abs(b.vx)*0.86;}
+    if(b.y<R){b.y=R;b.vy=Math.abs(b.vy)*0.86;}if(b.y>H-R){b.y=H-R;b.vy=-Math.abs(b.vy)*0.86;}
+   }
+   for(let i=0;i<balls.length;i++)for(let j=i+1;j<balls.length;j++){
+    const a=balls[i],b=balls[j];if(a.down||b.down)continue;
+    const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy);
+    if(d<2*R){const nx=d?dx/d:1,ny=d?dy/d:0,over=(2*R-d)/2+0.001;
+     a.x-=nx*over;a.y-=ny*over;b.x+=nx*over;b.y+=ny*over;
+     const v=(a.vx-b.vx)*nx+(a.vy-b.vy)*ny;
+     if(v>0){if(first===null&&(a.id===0||b.id===0))first=a.id===0?b.id:a.id;a.vx-=v*nx*0.98;a.vy-=v*ny*0.98;b.vx+=v*nx*0.98;b.vy+=v*ny*0.98;}
+    }
+   }
+   let moving=false;
+   for(const b of balls){const v=Math.hypot(b.vx,b.vy),next=Math.max(0,v-155*dt);if(v){b.vx*=next/v;b.vy*=next/v;}if(next>0)moving=true;}
+   if(step%6===5)frames.push(snapshot());if(!moving)break;
+  }
+  if(scratch){
+   outer:for(let x=200;x<=750;x+=26)for(let y=200;y<=356;y+=26){
+    if(balls.every(b=>b.down||Math.hypot(b.x-x,b.y-y)>=2*R+1)){cue.down=false;cue.x=x;cue.y=y;break outer;}
+   }
+  }
+  const state=adjudicate(s,snapshot(),{potted,scratch,first},angle,power);
+  frames.push(state.b);
+  return {state,frames,potted,scratch,first,foul:state.moves.at(-1).outcome.foul};
+ }
+ function chooseShot(s){
+  if(!validateState(s)||result(s))throw Error('No playable state');
+  const cue=s.b[0];let best=null,bestScore=-Infinity;
+  for(const b of targets(s))for(const p of pockets){
+   const dx=p[0]-b[1],dy=p[1]-b[2],d=Math.hypot(dx,dy)||1;
+   const gx=b[1]-dx/d*2*R,gy=b[2]-dy/d*2*R;
+   const angle=(Math.atan2(gy-cue[2],gx-cue[1])*180/Math.PI+360)%360;
+   const distance=Math.hypot(gx-cue[1],gy-cue[2]);
+   const power=Math.max(0.12,Math.min(0.95,(Math.sqrt(310*(distance+d*1.25))-180)/820));
+   for(const extra of [0]){
+    const a=[round(angle),round(Math.min(1,power+extra))];if(a[0]>=360)a[0]=0;
+    const r=shoot(s,...a),gain=r.potted.filter(id=>group(id)===(s.groups[s.turn]||group(b[0]))).length;
+    const near=r.state.b.slice(1).reduce((v,b)=>v+Math.min(...pockets.map(p=>Math.hypot(b[1]-p[0],b[2]-p[1]))),0);
+    const score=(r.state.result==='seat'+s.turn?100000:0)-(r.state.over&&r.state.result!=='seat'+s.turn?200000:0)+gain*10000-(r.foul?15000:0)-near*0.05-a[1];
+    if(score>bestScore){bestScore=score;best=a;}
+   }
+  }
+  return best;
+ }
+ const api={W,H,R,POCKET,pockets,group,colors,adjudicate,targets,createState,validateState,shoot,result,chooseShot};
+ if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.PoolEngine=api;
+})(typeof window!=='undefined'?window:globalThis);
+
+/* Visual-only no-slip rolling, world XY; +Z faces the viewer. */
+(function(root){
+ 'use strict';
+ function mul(a,b){const [w,x,y,z]=a,[v,i,j,k]=b;return [w*v-x*i-y*j-z*k,w*i+x*v+y*k-z*j,w*j-x*k+y*v+z*i,w*k+x*j-y*i+z*v];}
+ function advance(q,dx,dy,r=11){const d=Math.hypot(dx,dy);if(!d)return q.slice();const s=Math.sin(d/r/2)/d,a=mul([Math.cos(d/r/2),-dy*s,dx*s,0],q),n=Math.hypot(...a);return a.map(v=>v/n);}
+ function rotate(q,v){return mul(mul(q,[0,...v]),[q[0],-q[1],-q[2],-q[3]]).slice(1);}
+ const initial=()=>[1,0,0,0];
+ const colors=typeof module!=='undefined'&&module.exports?require('./engine.cjs').colors:root.PoolEngine.colors;
+ function surface(id,band){return id>=9?(band<.48?colors[id]:'#faf4e5'):colors[id];}
+ function draw(ctx,id,x,y,q,color){
+  const r=11;ctx.save();ctx.translate(x,y);
+  ctx.shadowColor='rgba(0,0,0,.45)';ctx.shadowBlur=4;ctx.shadowOffsetY=3;
+  ctx.fillStyle=surface(id,1);ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.shadowOffsetY=0;
+  ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);ctx.clip();
+  // Broad spherical belt: inverse-project each visible surface normal.
+  // Diagonal axis keeps the stripe moving for both principal travel directions.
+  const texture=draw.texture||(draw.texture=typeof document!=='undefined'&&document.createElement?document.createElement('canvas'):null);
+  if(texture){texture.width=texture.height=44;const tc=texture.getContext('2d'),im=tc.createImageData(44,44),axis=rotate(q,[1/Math.sqrt(3),1/Math.sqrt(3),1/Math.sqrt(3)]);
+   if(id>=9)for(let py=0;py<44;py++)for(let px=0;px<44;px++){const nx=(px+.5-22)/22,ny=(py+.5-22)/22,z2=1-nx*nx-ny*ny;if(z2<0)continue;const band=Math.abs(nx*axis[0]+ny*axis[1]+Math.sqrt(z2)*axis[2]);if(band<.48){const rgb=surface(id,band).slice(1),k=(py*44+px)*4;im.data[k]=parseInt(rgb.slice(0,2),16);im.data[k+1]=parseInt(rgb.slice(2,4),16);im.data[k+2]=parseInt(rgb.slice(4,6),16);im.data[k+3]=255;}}
+   tc.putImageData(im,0,0);ctx.drawImage(texture,-r,-r,22,22);
+  }
+  // Two authentic opposite number patches. Sample cap boundary in 3D,
+  // clip against the visible hemisphere, then orthographically project.
+  for(const sign of id?[1,-1]:[1]){
+   const cap=id?.61:.105,c=Math.cos(cap),s=Math.sin(cap),poly=[];
+   for(let i=0;i<64;i++){const a=i*Math.PI/32;poly.push(rotate(q,[s*Math.cos(a),s*Math.sin(a),sign*c]));}
+   const front=[];
+   for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length];if(a[2]>=0)front.push(a);if((a[2]>=0)!==(b[2]>=0)){const t=a[2]/(a[2]-b[2]);front.push([a[0]+t*(b[0]-a[0]),a[1]+t*(b[1]-a[1]),0]);}}
+   if(front.length){ctx.fillStyle=id?'#fff4dc':'#c47364';ctx.beginPath();front.forEach((v,i)=>{if(i)ctx.lineTo(v[0]*r,v[1]*r);else ctx.moveTo(v[0]*r,v[1]*r);});ctx.closePath();ctx.fill();}
+   const n=rotate(q,[0,0,sign]);
+   if(id&&n[2]>.08){const u=rotate(q,[0,-sign,0]),v=rotate(q,[1,0,0]);ctx.save();ctx.transform(u[0],u[1],v[0],v[1],n[0]*r,n[1]*r);ctx.fillStyle='#262528';ctx.font='bold 10px Arial';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(String(id),0,.5);ctx.restore();}
+  }
+  // Lighting and contact shadow belong to the room, not the texture.
+  const shade=ctx.createRadialGradient(-4,-5,1,0,0,12);shade.addColorStop(0,'rgba(255,255,255,.64)');shade.addColorStop(.27,'rgba(255,255,255,.08)');shade.addColorStop(.72,'rgba(0,0,0,.05)');shade.addColorStop(1,'rgba(0,0,0,.58)');ctx.fillStyle=shade;ctx.fillRect(-r,-r,r*2,r*2);ctx.restore();
+ }
+ function timeline(frames,seed){
+  let previous=null,orient=seed;return frames.map(frame=>{const next={};for(const [id,x,y] of frame){const b=previous&&previous.find(b=>b[0]===id);next[id]=b?advance(orient[id]||initial(),x-b[1],y-b[2]):(previous?initial():(orient[id]||initial()));}previous=frame;orient=next;return next;});
+ }
+ function slerp(a,b,t){let dot=a.reduce((s,v,i)=>s+v*b[i],0);if(dot<0){b=b.map(v=>-v);dot=-dot;}if(dot>.9995){const q=a.map((v,i)=>v+(b[i]-v)*t),n=Math.hypot(...q);return q.map(v=>v/n);}const theta=Math.acos(Math.min(1,dot)),den=Math.sin(theta);return a.map((v,i)=>(v*Math.sin((1-t)*theta)+b[i]*Math.sin(t*theta))/den);}
+ function sample(frames,rolls,f){const at=Math.max(0,Math.min(1,f))*(frames.length-1),i=Math.floor(at),j=Math.min(i+1,frames.length-1),t=at-i,orientations={};const display=frames[i].map(b=>{const next=frames[j].find(n=>n[0]===b[0]);orientations[b[0]]=slerp(rolls[i][b[0]],(rolls[j][b[0]]||rolls[i][b[0]]),t);return next?[b[0],b[1]+(next[1]-b[1])*t,b[2]+(next[2]-b[2])*t]:b;});return {display,orientations};}
+ const api={surface,advance,rotate,initial,draw,timeline,slerp,sample};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.PoolRoll=api;
+})(typeof window!=='undefined'?window:globalThis);
+</script><script>/* Casual eight-ball: deterministic engine, local computer or real server. */
+(()=>{'use strict';
+ const E=window.PoolEngine,R=window.PoolRoll,$=id=>document.getElementById(id),canvas=$('table'),ctx=canvas.getContext('2d'),colors=E.colors;
+ let state=E.createState(),mode='local',busy=false,epoch=0,display=state.b,orientations={},angle=0,power=.65,last='Tap the felt to aim. You break.',motion=localStorage.getItem('pool-motion')||'auto',loaded=Promise.resolve(),net=null;
+ const reduced=()=>motion==='instant'||(motion==='auto'&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+ const ready=()=>!busy&&!state.over&&state.turn===(mode==='local'?0:net?.seat)&&$('lobby').hidden&&!(mode!=='local'&&(!net?.connected||net?.players<2));
+ function draw(){
+  ctx.clearRect(0,0,480,880);ctx.save();ctx.translate(480,0);ctx.rotate(Math.PI/2);
+  const wood=ctx.createLinearGradient(0,0,0,480);wood.addColorStop(0,'#c06d4a');wood.addColorStop(.04,'#743028');wood.addColorStop(.09,'#aa4c32');wood.addColorStop(.5,'#562322');wood.addColorStop(.91,'#9f432f');wood.addColorStop(.97,'#c36c43');wood.addColorStop(1,'#522a29');
+  ctx.fillStyle=wood;ctx.beginPath();ctx.roundRect(3,3,874,474,27);ctx.fill();ctx.strokeStyle='#db9470';ctx.lineWidth=2;ctx.stroke();
+  ctx.strokeStyle='#e4a07835';ctx.lineWidth=1;for(const y of [10,15,19,461,466,470]){ctx.beginPath();ctx.moveTo(35,y);ctx.lineTo(845,y);ctx.stroke();}
+  const metal=ctx.createLinearGradient(0,0,45,48);metal.addColorStop(0,'#c8d4dc');metal.addColorStop(.35,'#7a8a9d');metal.addColorStop(.65,'#344153');metal.addColorStop(1,'#b6c4d0');ctx.fillStyle=metal;
+  for(const [x,y] of [[4,4],[828,4],[4,428],[828,428]]){ctx.beginPath();ctx.roundRect(x,y,48,48,11);ctx.fill();}
+  ctx.fillStyle='#08749b';ctx.beginPath();ctx.roundRect(24,24,832,432,15);ctx.fill();
+  ctx.strokeStyle='#70d7ee';ctx.lineWidth=2;ctx.stroke();ctx.fillStyle='#1783aa';ctx.fillRect(40,40,800,400);
+  const felt=ctx.createRadialGradient(400,195,30,440,240,490);felt.addColorStop(0,'#39a9ca');felt.addColorStop(.65,'#208daf');felt.addColorStop(1,'#0c587f');ctx.fillStyle=felt;ctx.fillRect(40,40,800,400);
+  ctx.strokeStyle='#072f5299';ctx.lineWidth=6;ctx.strokeRect(40,40,800,400);
+  ctx.fillStyle='#b0e9f2';for(const x of [140,240,340,540,640,740])for(const y of [17,463]){ctx.beginPath();ctx.arc(x,y,2,0,7);ctx.fill();}
+  for(const [x,y] of E.pockets){const px=x+40,py=y+40;ctx.fillStyle='#442020';ctx.beginPath();ctx.arc(px,py,28,0,Math.PI*2);ctx.fill();const well=ctx.createRadialGradient(px,py-5,3,px,py,24);well.addColorStop(0,'#03070c');well.addColorStop(.82,'#04080d');well.addColorStop(1,'#10202b');ctx.fillStyle=well;ctx.beginPath();ctx.arc(px,py,23,0,Math.PI*2);ctx.fill();}
+  ctx.save();ctx.translate(40,40);
+  if(ready())guide();
+  for(const b of display){
+   const [id,x,y]=b;R.draw(ctx,id,x,y,orientations[id]||R.initial(),colors[id]);
+  }
+  ctx.restore();ctx.restore();
+ }
+ function guide(){
+  const cue=state.b[0],rad=angle*Math.PI/180,dx=Math.cos(rad),dy=Math.sin(rad);let dist=1000,hit=null;
+  for(const b of state.b.slice(1)){
+   const bx=b[1]-cue[1],by=b[2]-cue[2],along=bx*dx+by*dy,side=bx*bx+by*by-along*along;
+   if(along>0&&side<484){const t=along-Math.sqrt(484-side);if(t>=0&&t<dist){dist=t;hit=b;}}
+  }
+  const rail=Math.min(dx>0?(789-cue[1])/dx:dx<0?(11-cue[1])/dx:10000,dy>0?(389-cue[2])/dy:dy<0?(11-cue[2])/dy:10000);
+  if(rail<dist){dist=rail;hit=null;}const x=cue[1]+dx*dist,y=cue[2]+dy*dist;
+  ctx.strokeStyle='rgba(245,253,255,.8)';ctx.lineWidth=1.3;ctx.beginPath();ctx.moveTo(cue[1],cue[2]);ctx.lineTo(x,y);ctx.stroke();
+  ctx.beginPath();ctx.arc(x,y,11,0,7);ctx.stroke();
+  if(hit){const nx=(hit[1]-x)/22,ny=(hit[2]-y)/22;ctx.strokeStyle='rgba(247,232,188,.4)';ctx.beginPath();ctx.moveTo(hit[1],hit[2]);ctx.lineTo(hit[1]+nx*90,hit[2]+ny*90);ctx.stroke();}
+  const pull=22+power*42;ctx.save();ctx.translate(cue[1],cue[2]);ctx.rotate(rad);const shaft=ctx.createLinearGradient(-pull-175,0,-pull,0);shaft.addColorStop(0,'#713b2b');shaft.addColorStop(.35,'#bf7441');shaft.addColorStop(.36,'#f1d09b');shaft.addColorStop(1,'#fff0ca');ctx.strokeStyle=shaft;ctx.lineWidth=5;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(-pull,0);ctx.lineTo(-pull-175,0);ctx.stroke();ctx.strokeStyle='#89d8eb';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-pull,0);ctx.lineTo(-pull-4,0);ctx.stroke();ctx.restore();
+ }
+ function render(){
+  const end=state.over;for(const [seat,prefix] of [[0,'human'],[1,'astro']]){const g=state.groups[seat],ids=g==='solids'?[1,2,3,4,5,6,7]:g==='stripes'?[9,10,11,12,13,14,15]:[];
+   $(prefix+'Group').textContent=g?g.toUpperCase():'OPEN';$(prefix+'Score').textContent=g?ids.filter(id=>!state.b.some(b=>b[0]===id)).length:'–';
+   $(prefix+'Pips').innerHTML=(ids.length?ids:[1,2,3,4,5,6,7]).map(id=>`<i class="pip ${ids.length&&!state.b.some(b=>b[0]===id)?'potted':''}" title="${ids.length?'Ball '+id:'Group not assigned'}" style="background:${g==='stripes'?`linear-gradient(0deg,#faf4e5 25%,${colors[id]} 25%,${colors[id]} 75%,#faf4e5 75%)`:colors[id]};opacity:${g?1:.35}"></i>`).join('');
+   $(prefix+'Player').classList.toggle('active',state.turn===seat&&!end);
+  }
+  $('humanName').textContent=mode==='local'?'You':net?.seat===0?'You':'Player 1';$('astroName').textContent=mode==='local'?'Computer':mode==='astro'?'Astro':net?.seat===1?'You':'Player 2';
+  $('remaining').textContent=`${state.b.length-1} on the table`;
+  const who=mode==='local'?(state.turn===0?'Your turn':'Computer is lining up…'):net?.seat===null?'Spectating':state.turn===net?.seat?'Your turn':mode==='astro'?'Astro is thinking…':'Friend’s turn';
+  $('turn').textContent=end?`${state.result==='draw'?'Draw':state.result==='seat0'?'Player 1 wins':'Player 2 wins'} · ${state.reason}`:busy?'Shot rolling…':who;
+  $('status').textContent=last;$('shoot').disabled=$('angle').disabled=$('power').disabled=!ready();$('shoot').textContent=end?'Round complete':busy?'Rolling…':ready()?'Take the shot':'Waiting';
+  $('angleValue').textContent=angle.toFixed(1)+'°';$('powerValue').textContent=Math.round(power*100)+'%';$('motionNote').textContent=reduced()?'Instant':'Full rolling';$('modeNote').textContent=mode==='local'?'Local computer opponent · automatic reply':'Live server multiplayer · '+(net?.seat===null?'spectator':`you are Player ${(net?.seat??0)+1}`);
+  draw();
+ }
+ function animate(frames,token){
+  const rolls=R.timeline(frames,orientations);
+  if(reduced()){display=frames[frames.length-1];orientations=rolls[rolls.length-1];draw();return Promise.resolve(token===epoch);}
+  return new Promise(resolve=>{const start=performance.now(),duration=Math.min(4800,Math.max(280,frames.length*20));
+   function tick(now){if(token!==epoch){resolve(false);return;}const f=Math.max(0,Math.min(1,(now-start)/duration)),index=Math.min(frames.length-1,Math.floor(f*(frames.length-1)));const sampled=R.sample(frames,rolls,f);display=sampled.display;orientations=sampled.orientations;draw();if(f<1)requestAnimationFrame(tick);else resolve(true);}
+   requestAnimationFrame(tick);
+  });
+ }
+ let dragging=false;
+ function aim(e){if(!ready())return;const r=canvas.getBoundingClientRect(),x=(e.clientY-r.top)*880/r.height-40,y=440-(e.clientX-r.left)*480/r.width,cue=state.b[0];angle=Math.round(((Math.atan2(y-cue[2],x-cue[1])*180/Math.PI+360)%360)*10)/10;if(angle>=360)angle=0;$('angle').value=String(angle);render();}
+ canvas.addEventListener('pointerdown',e=>{if(!ready())return;dragging=true;canvas.setPointerCapture?.(e.pointerId);aim(e);});canvas.addEventListener('pointermove',e=>{if(dragging)aim(e);});canvas.addEventListener('pointerup',()=>dragging=false);canvas.addEventListener('pointercancel',()=>dragging=false);
+ async function takeShot(a,p,actor=mode==='local'?0:net?.seat){
+  if(busy||state.over||state.turn!==actor||actor===null)return false;if(mode!=='local'&&!ready())return false;
+  let shot;try{shot=E.shoot(state,a,p);}catch(e){last=e.message;render();return false;}
+  const token=epoch;busy=true;render();
+  if(mode!=='local'){try{await net.post(shot.state);}catch(e){busy=false;last=e.message;render();await net.reload();return false;}}
+  if(!await animate(shot.frames,token))return false;
+  state=shot.state;display=state.b;busy=false;last=shot.foul?`${shot.foul}. Turn passes.${shot.scratch?' Cue automatically respotted.':''}`:shot.potted.length?`Potted ${shot.potted.map(id=>'#'+id).join(', ')}. ${state.turn===actor?'Shoot again.':'Turn passes.'}`:'Miss. Turn passes.';
+  if(mode==='local')localStorage.setItem('pool-eight-local',JSON.stringify(state));render();flushPending();
+  if(mode==='local'&&state.turn===1&&!state.over){busy=true;render();await new Promise(r=>setTimeout(r,reduced()?0:200));if(token!==epoch)return false;const ai=E.chooseShot(state);busy=false;return takeShot(...ai,1);}return true;
+ }
+ function restart(){epoch++;net?.close();net=null;mode='local';busy=false;orientations={};state=E.createState();display=state.b;last='Fresh rack. You break.';localStorage.removeItem('pool-eight-local');history.replaceState(null,'',location.pathname);$('share').hidden=true;render();}
+ function showSettings(open){$('settings').hidden=!open;$('settingsButton').setAttribute('aria-expanded',String(open));}
+ $('settingsButton').onclick=()=>showSettings(true);$('settingsClose').onclick=()=>showSettings(false);$('settings').onclick=e=>{if(e.target===$('settings'))showSettings(false);};$('settings').onkeydown=e=>{if(e.key==='Escape')showSettings(false);};
+ $('motionMode').value=motion;$('motionMode').onchange=e=>{motion=e.target.value;localStorage.setItem('pool-motion',motion);render();};
+ $('shoot').onclick=()=>takeShot(angle,power);$('restart').onclick=()=>{if(mode==='local')restart();else{$('lobby').hidden=false;render();}};
+ $('backLobby').onclick=()=>{showSettings(false);$('lobby').hidden=false;render();};
+ $('playComputer').onclick=()=>{const savedText=localStorage.getItem('pool-eight-local');restart();try{const saved=JSON.parse(savedText);if(E.validateState(saved)){state=saved;display=state.b;localStorage.setItem('pool-eight-local',savedText);}}catch(_){}$('lobby').hidden=true;render();if(state.turn===1&&!state.over){busy=true;render();setTimeout(()=>{const ai=E.chooseShot(state);busy=false;takeShot(...ai,1);},0);}};
+ $('angle').oninput=e=>{angle=Number(e.target.value);render();};$('power').oninput=e=>{power=Number(e.target.value)/100;render();};
+ $('copy').onclick=async()=>{try{await navigator.clipboard.writeText($('shareLink').value);$('copyNote').textContent='Copied game link.';}catch(_){$('shareLink').focus();$('shareLink').select();$('copyNote').textContent='Copy unavailable. Select and copy this link manually.';}};
+ window.poolGame={get state(){return JSON.parse(JSON.stringify(state));},get mode(){return mode;},get busy(){return busy;},get ready(){return ready();},get loaded(){return loaded;},get network(){return net?{id:net.id,seat:net.seat,version:net.version}:null;},runShot:(a,p)=>takeShot(a,p),restart};
+ if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+ render();
+ /* Inserted inside the app closure by build.cjs. */
+ let serverBase='',pending=null,receiveQueue=Promise.resolve();
+ async function discover(){const r=await fetch(new URL('../_server/game-server.json?t='+Date.now(),location.href),{cache:'no-store'});if(!r.ok)throw Error('Server discovery unavailable');const d=await r.json();if(typeof d.url!=='string'||!/^https:\/\//.test(d.url))throw Error('Invalid server discovery');serverBase=d.url.replace(/\/$/,'');return serverBase;}
+ async function request(path,body,retry=true){if(!serverBase)await discover();try{const r=await fetch(serverBase+path,{method:body?'POST':'GET',headers:body?{'Content-Type':'application/json'}:{},body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(15000)});const d=await r.json();if(!r.ok){const e=Error(r.status===409?'Table changed or turn unavailable — reloaded.':d.error||'Server request failed');e.status=r.status;e.current=d.current;throw e;}return d;}catch(e){if(!e.status&&retry){await discover();return request(path,body,false);}throw e;}}
+ async function receive(game){if(!E.validateState(game.state)){last='Unsupported server game state.';render();return;}if(busy){pending=game;return;}
+  const next=game.state;if(next.n===state.n&&JSON.stringify(next)===JSON.stringify(state)){render();return;}
+  const token=epoch;busy=true;render();let replay=state;
+  try{if(next.n>state.n&&next.n-state.n<=8){for(const move of next.moves.slice(state.n)){const shot=E.shoot(replay,move.angle,move.power);if(!await animate(shot.frames,token))return;replay=shot.state;}}}catch(_){orientations={};}
+  if(token!==epoch)return;state=next;display=state.b;busy=false;last=next.over?next.reason:'Live table updated.';render();flushPending();
+ }
+ function flushPending(){if(pending&&!busy){const next=pending;pending=null;receiveQueue=receiveQueue.then(()=>receive(next));}}
+ function makeNet(game,seat,token){
+  const n={id:game.id,seat,token,version:game.version,connected:true,players:game.players.filter(Boolean).length,source:null,timer:null,reconnect:null,closed:false,delay:1000};
+  n.accept=d=>{if(n.closed||d.version<n.version)return;n.version=d.version;n.players=d.players?.filter(Boolean).length??n.players;n.connected=true;if(d.agent_seat!==null&&d.agent_seat!==undefined)mode='astro';receiveQueue=receiveQueue.then(()=>receive(d));};
+  n.reload=async()=>{if(n.closed)return;try{const d=await request('/api/games/'+n.id);n.accept(d);}catch(e){n.connected=false;last='Connection unavailable. Reconnecting…';render();}};
+  n.post=async next=>{try{const d=await request('/api/games/'+n.id+'/state',{token:n.token,version:n.version,state:next});n.version=d.version;return d;}catch(e){await n.reload();throw e;}};
+  n.connect=()=>{if(n.closed)return;n.source?.close();n.source=new EventSource(serverBase+'/api/games/'+n.id+'/events');n.source.addEventListener('update',e=>{try{n.delay=1000;n.accept(JSON.parse(e.data));}catch(_){};});n.source.onopen=()=>{n.connected=true;render();};n.source.onerror=()=>{n.source.close();if(n.closed)return;n.reconnect=setTimeout(async()=>{await n.reload();n.connect();},n.delay);n.delay=Math.min(30000,n.delay*2);};};
+  n.close=()=>{n.closed=true;n.source?.close();clearInterval(n.timer);clearTimeout(n.reconnect);pending=null;};
+  n.timer=setInterval(n.reload,3000);n.connect();return n;
+ }
+ async function openGame(id,kind){
+  $('lobbyStatus').textContent='Connecting to live game server…';$('playFriend').disabled=true;
+  try{
+   let game,seat=null,token=null;
+   if(id){game=await request('/api/games/'+encodeURIComponent(id));if(game.type!=='eightball'&&game.type!=='eightball-test')throw Error('This is not an eight-ball game.');const memory=JSON.parse(localStorage.getItem('astro-game:'+id)||'null');if(memory){seat=memory.seat;token=memory.token;}else if(game.players.some((p,i)=>!p&&i!==game.agent_seat)){try{const joined=await request('/api/games/'+id+'/join',{name:'Player 2'});seat=joined.seat;token=joined.token;game=joined;}catch(e){if(e.status!==409)throw e;game=await request('/api/games/'+id);}}}
+   else{game=await request('/api/games',{type:new URLSearchParams(location.search).get('test')==='1'?'eightball-test':'eightball',seats:2,state:E.createState(),vs_astro:false,name:'Player 1'});seat=game.seat;token=game.token;id=game.id;}
+   if(!E.validateState(game.state))throw Error('Unsupported game state');if(token)localStorage.setItem('astro-game:'+id,JSON.stringify({seat,token}));
+   epoch++;net?.close();mode=game.agent_seat!==null&&game.agent_seat!==undefined?'astro':'friend';state=game.state;display=state.b;orientations={};busy=false;net=makeNet(game,seat,token);
+   const test=new URLSearchParams(location.search).get('test')==='1';history.replaceState(null,'','?g='+id+(test?'&test=1':''));$('lobby').hidden=true;$('share').hidden=mode!=='friend';$('shareLink').value=location.origin+location.pathname+'?g='+id;last=net.players<2?'Copy the game link below and send it to Astro or a friend.':seat===null?'Game full. You are watching live.':'Connected to live table.';render();
+  }catch(e){$('lobby').hidden=false;$('lobbyStatus').textContent='Multiplayer unavailable: '+e.message+'. Play computer works offline.';}finally{$('playFriend').disabled=false;}
+ }
+ $('playFriend').onclick=()=>{loaded=openGame(null,'friend');};
+ const gameId=new URLSearchParams(location.search).get('g');if(gameId)loaded=openGame(gameId);
+
+})();
+</script></body></html>
