@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Astro publishing test</title>
+<style>
+  :root { color-scheme: light dark; --bg:#f6f7fb; --fg:#1c1d22; --card:#fff; --accent:#4f6bed; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#111318; --fg:#e8e9ee; --card:#1b1e26; --accent:#8ea0ff; } }
+  body { margin:0; min-height:100vh; display:grid; place-items:center; background:var(--bg); color:var(--fg);
+         font:16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; padding:16px; box-sizing:border-box; }
+  .card { background:var(--card); border-radius:16px; padding:28px 24px; max-width:420px; width:100%;
+          box-shadow:0 8px 30px rgba(0,0,0,.08); text-align:center; }
+  h1 { margin:.2em 0; font-size:1.5rem; }
+  .ok { font-size:2.5rem; }
+  code { color:var(--accent); }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="ok">🚀</div>
+    <h1>Astro can publish</h1>
+    <p>This page was written on the server and published to GitHub Pages by the host sync job.</p>
+    <p>Rendered at <code id="t"></code></p>
+  </div>
+  <script>document.getElementById('t').textContent = new Date().toLocaleString();</script>
+</body>
+</html>
